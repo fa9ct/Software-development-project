@@ -9,6 +9,24 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
+     * Display a listing of users.
+     */
+    public function index(): JsonResponse
+    {
+        $users = User::all();
+
+        return response()->json($users);
+    }
+
+    /**
+     * Display the specified user.
+     */
+    public function show(User $user): JsonResponse
+    {
+        return response()->json($user);
+    }
+
+    /**
      * Store a newly created user.
      */
     public function store(Request $request): JsonResponse
