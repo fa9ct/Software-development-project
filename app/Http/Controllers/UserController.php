@@ -43,4 +43,22 @@ class UserController extends Controller
 
         return response()->json($user, 201);
     }
+
+    /**
+     * Update the specified user.
+     */
+    public function update(Request $request, User $user): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|unique:users,email,'.$user->id,
+            'password' => 'sometimes|string|min:6',
+            'phone_number' => 'nullable|string|max:20',
+            'role' => 'sometimes|string|in:user,admin',
+        ]);
+
+        $user->update($validated);
+
+        return response()->json($user);
+    }
 }
